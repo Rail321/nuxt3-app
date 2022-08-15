@@ -20,7 +20,7 @@
   const loading = ref( false )
   const fetchRoles = async () => {
     loading.value = true
-    await Roles.fetch()
+    await Roles.fetchSoft()
     loading.value = false
   }
 
