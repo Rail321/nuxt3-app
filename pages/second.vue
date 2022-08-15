@@ -6,7 +6,7 @@
       </div>
       
       <div v-else>
-        <p v-for="role of roles" v-bind:key="role.slug">
+        <p v-for="role of Roles.get()" v-bind:key="role.slug">
           <span>{{ role.title }}</span>
         </p>
       </div>
@@ -15,13 +15,12 @@
 </template>
 
 <script setup>
-  import requestRoles from '@/api-imitator/roles'
+  import Roles from '@/modules/Roles'
 
-  const roles = ref( null )
   const loading = ref( false )
   const fetchRoles = async () => {
     loading.value = true
-    roles.value = await requestRoles()
+    await Roles.fetch()
     loading.value = false
   }
 
