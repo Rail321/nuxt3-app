@@ -10,15 +10,21 @@
           <span>{{ role.title }}</span>
         </p>
       </div>
+
+      <button type="button" v-on:click="requestHard" v-bind:disabled="loading">Обновить</button>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-  import useRoles from '@/use/roles'
+  import {
+    loading,
+    data as roles,
+    requestSoft,
+    requestHard
+  } from '@/modules/roles'
 
-  const { loading, request } = useRoles()
-  const roles = ref( [] )
-  const fetchRoles = async () => roles.value = await request()
-  onMounted( fetchRoles )
+  onMounted( () => {
+    requestSoft()
+  } )
 </script>

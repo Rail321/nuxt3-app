@@ -15,10 +15,13 @@
 </template>
 
 <script setup>
-  import useRoles from '@/use/roles'
+  import {
+    loading,
+    data as roles,
+    requestSoft
+  } from '@/modules/roles'
 
-  const { loading, request } = useRoles()
-  const roles = ref( [] )
-  const fetchRoles = async () => roles.value = await request()
-  onMounted( fetchRoles )
+  onMounted( () => {
+    requestSoft()
+  } )
 </script>

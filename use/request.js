@@ -1,14 +1,22 @@
-export default sourceRequest => {
+export default request => {
+  const ready = ref( false )
   const loading = ref( false )
-  const request = async () => {
+  
+  const requestHard = async () => {
     loading.value = true
-    const response = await sourceRequest()
+    const response = await request()
     loading.value = false
+    ready.value = true
     return response
+  }
+  const requestSoft = async () => {
+    if ( !( ready.value ) ) return await requestHard()
   }
 
   return {
+    ready,
     loading,
-    request
+    requestHard,
+    requestSoft
   }
 }
