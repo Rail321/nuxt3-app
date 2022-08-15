@@ -6,7 +6,7 @@
       </div>
       
       <div v-else>
-        <p v-for="role of Roles.get()" v-bind:key="role.slug">
+        <p v-for="role of roles" v-bind:key="role.slug">
           <span>{{ role.title }}</span>
         </p>
       </div>
@@ -15,16 +15,10 @@
 </template>
 
 <script setup>
-  import Roles from '@/modules/Roles'
+  import useRoles from '@/use/roles'
 
-  const loading = ref( false )
-  const fetchRoles = async () => {
-    loading.value = true
-    await Roles.fetchSoft()
-    loading.value = false
-  }
-
-  onMounted( () => {
-    fetchRoles()
-  } )
+  const { loading, request } = useRoles()
+  const roles = ref( [] )
+  const fetchRoles = async () => roles.value = await request()
+  onMounted( fetchRoles )
 </script>
