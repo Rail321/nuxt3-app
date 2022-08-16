@@ -1,27 +1,27 @@
 <template>
   <NuxtLayout>
     <div>
-      <div v-if="loading">
-        <p>Загрузка...</p>
-      </div>
+      <p v-if="Roles.loading">Загрузка...</p>
+      
+      <p v-else-if="Roles.error">{{ Roles.error }}</p>
       
       <div v-else>
-        <p v-for="role of roles" v-bind:key="role.slug">
+        <p v-for="role of Roles.data" v-bind:key="role.slug">
           <span>{{ role.title }}</span>
         </p>
       </div>
+
+      <button type="button" v-on:click="Roles.requestHard" v-bind:disabled="Roles.loading">Обновить</button>
+
+      <p v-if="Roles.ready">Роли подгружены</p>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-  import {
-    loading,
-    data as roles,
-    requestSoft
-  } from '@/modules/roles'
+  import Roles from '@/modules/Roles'
 
   onMounted( () => {
-    requestSoft()
+    Roles.requestSoft()
   } )
 </script>

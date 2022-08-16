@@ -3,8 +3,10 @@ const data = [
   { slug: 'client', title: 'Клиент' }
 ]
 
-export default () => new Promise( resolve => {
+export default () => new Promise( ( resolve, reject ) => {
   setTimeout( () => {
-    resolve( data )
+    Math.random() > .5
+      ? resolve( data )
+      : reject( 'Ошибка при запросе' )
   }, 1000 )
 } )

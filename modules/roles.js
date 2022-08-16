@@ -11,6 +11,7 @@ const apiRolesModified = async () => {
 const {
   ready,
   loading,
+  error,
   requestHard,
   requestSoft
 } = useRequest( apiRolesModified )
@@ -21,6 +22,16 @@ export {
   data,
   ready,
   loading,
+  error,
   requestHard,
   requestSoft
 }
+
+export default reactive( {
+  data,
+  ready,
+  loading,
+  error,
+  requestHard,
+  requestSoft
+} )
